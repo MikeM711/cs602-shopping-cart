@@ -9,30 +9,27 @@ const dbUrl = 'mongodb://' + credentials.username +
 let connection = null;
 let model = null;
 
-
-const productSchema = new Schema({
-	name: String,
-	description: String,
-	price: Number,
-	stock: Number
-
-}, { collection: 'products' });
-
-// custom schema method
-// courseSchema.methods.getDeveloperNames = function () {
-// 	return this.courseDevelopers.map(
-// 		(elem) => {
-// 			return elem.firstName + ' ' +
-// 				elem.lastName;
-// 		}).join(',');
-// };
+const productSchema = new Schema(
+	{
+		name: String,
+		description: String,
+		price: Number,
+		stock: Number,
+	},
+	{ timestamps: {}, collection: "products" }
+);
+productSchema.index({ name: "text", description: "text" });
 
 module.exports.getModel = () => {
 	if (connection == null) {
 		console.log("Creating connection and model...");
-		connection = mongoose.createConnection(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+		connection = mongoose.createConnection(dbUrl, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useCreateIndex: true,
+		});
 		model = connection.model("ProductModel", productSchema);
-	};
+	}
 	return model;
 };
 

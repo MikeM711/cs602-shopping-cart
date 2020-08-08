@@ -8,20 +8,20 @@
 				Sort by
 			</button>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="#">Price: Low to High</a>
-				<a class="dropdown-item" href="#">Price: High to Low</a>
-				<a class="dropdown-item" href="#">Name: Alphabetical</a>
-				<a class="dropdown-item" href="#">Newest Arrivals</a>
+				<a class="dropdown-item" href="/shop?sort=low-to-high">Price: Low to High</a>
+				<a class="dropdown-item" href="/shop?sort=high-to-low">Price: High to Low</a>
+				<a class="dropdown-item" href="/shop?sort=alphabetical">Name: Alphabetical</a>
+				<a class="dropdown-item" href="/shop?sort=newest">Newest Arrivals</a>
 			</div>
 		</div>
 
-		<a href="#">
+		<a href="/orders">
 			<h5 style="margin-bottom: 0px">Customer Orders</h5>
 		</a>
 
 
-		<form class="form-inline">
-			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		<form class="form-inline" action="/shop/search" method="post">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form>
 	</nav>
