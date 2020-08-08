@@ -1,0 +1,14 @@
+<h1>{{name}}</h1>
+<br />
+<h5><b>Description: </b>{{description}}</h5>
+<h5><b>List Price: </b>${{price}}</h5>
+<h5><b>Stock: </b>{{stock}}</h5>
+<br />
+<form action="/placeholder-add-to-user-cart" method="post"
+            id="add_category_form">
+
+    <label><h5>Quantity:</h5></label>
+    <input type="text" name="quantity">
+    <input type="submit" value="Add to Cart">
+
+</form>
