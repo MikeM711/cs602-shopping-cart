@@ -14,6 +14,16 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// for signed cookies
+const credentials = require('./credentials.js');
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+ 
+// cookie-parser first
+app.use(cookieParser());
+app.use(expressSession(
+   {secret: credentials.cookieSecret, resave: false, saveUninitialized: false}));
+
 // Routing
 var routes = require("./routes");
 app.use("/", routes);

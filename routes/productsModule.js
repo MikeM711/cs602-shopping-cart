@@ -38,7 +38,7 @@ module.exports.displayProducts = async (req, res, next) => {
             stock: Product.stock,
         };
     });
-    res.render("displayProductsView", { title: "Shop Display", data: data });
+    res.render("displayProductsView", { title: "CS602 Shop: Display", data: data });
 };
 
 module.exports.displaySingleProduct = async (req, res, next) => {
@@ -54,6 +54,7 @@ module.exports.displaySingleProduct = async (req, res, next) => {
         // Get all properties of the product for the view
         const { name, description, price, stock } = product;
         res.render("displaySingleProduct", {
+            title: "Shop Product",
             name,
             description,
             price: price.toFixed(2),
@@ -87,5 +88,5 @@ module.exports.searchProducts = async (req, res, next) => {
             stock: Product.stock,
         };
     });
-    res.render("displayProductsView", { title: "Shop Display", data: data });
+    res.render("displayProductsView", { title: "CS602 Shop: Search", data: data });
 };

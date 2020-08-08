@@ -4,18 +4,36 @@ const router = express.Router();
 // other modules
 
 const productsModule = require("./productsModule");
+const usersModule = require("./usersModule");
+const validationModule = require("./validationModule");
 
 const displayProducts       = productsModule.displayProducts;
 const displaySingleProduct  = productsModule.displaySingleProduct;
 const searchProducts        = productsModule.searchProducts;
 
-router.get("/", (req, res) => {
-    res.redirect("/shop");
-});
+const findUserByNameAndPw   = usersModule.findUserByNameAndPw;
 
-router.get("/shop",         displayProducts);
-router.get("/shop/:id",     displaySingleProduct);
-router.post("/shop/search", searchProducts);
+const authGuard             = validationModule.authGuard;
+
+router.get("/", (req, res) => { res.redirect("/shop")});
+
+router.get("/shop",         authGuard, displayProducts);
+router.get("/shop/:id",     authGuard, displaySingleProduct);
+router.post("/shop/search", authGuard, searchProducts);
+
+router.get("/login", (req, res) => {
+    const err = req.query.err;
+    res.render("login", { layout: "nonAuth", err, title: "CS602 Shopping Cart" });
+});
+router.post("/login", findUserByNameAndPw);
+
+router.get("/logout", (req, res) => {
+    // If a user logs out, change session values to undefined
+    req.session.authenticated = undefined;
+    req.session.orderList = undefined;
+    // Redirect the user to the login
+    res.redirect("/login");
+});
 
 // Admin permissions to edit
 router.get("/product/edit/:id", (req, res) => {
@@ -26,21 +44,6 @@ router.get("/product/edit/:id", (req, res) => {
 router.get("/product/delete/:id", (req, res) => {
     const id = req.params.id;
     res.render("deleteProductView", { id: id });
-});
-
-router.post("/validate-user", (req, res) => {
-    console.log("hit here");
-    // perform user validation here
-    if (true) {
-        res.redirect("/shop");
-    } else {
-        // Error: login failed, try again
-        // do login again
-    }
-});
-
-router.get("/login", (req, res) => {
-    res.render("login");
 });
 
 module.exports = router;
