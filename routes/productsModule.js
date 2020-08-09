@@ -59,6 +59,7 @@ module.exports.displaySingleProduct = async (req, res, next) => {
             description,
             price: price.toFixed(2),
             stock,
+            id
         });
     }
 };
