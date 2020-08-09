@@ -4,12 +4,12 @@
 <h5><b>List Price: </b>${{price}}</h5>
 <h5><b>Stock: </b>{{stock}}</h5>
 <br />
-<form action="/placeholder-add-to-user-cart" method="post"
+<form action="/shop/cart" method="post"
             id="add_category_form">
 
     <label><h5>Quantity:</h5></label>
-    <input type="text" name="quantity">
-    <input type="submit" class="btn btn-success" value="Add to Cart">
+    <input type="number" name="quantity">
+    <input type="submit" class="btn btn-success" value="Place Order">
 </form>
 <br />
 <a role="button" class="btn btn-secondary btn-md" href="/shop">Continue Shopping</a>

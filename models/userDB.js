@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// suppress warning
+mongoose.set('useFindAndModify', false);
+
 const credentials = require("../credentials.js");
 
 const dbUrl = 'mongodb://' + credentials.username +
@@ -14,6 +17,13 @@ const userSchema = new Schema(
 		username: String,
 		password: String,
 		status: String,
+		userOrders: [
+			{
+				product: String,
+				price: Number,
+				quantity: Number
+			}
+		],
 	},
 	{ collection: "users" }
 );

@@ -1,25 +1,34 @@
 const express = require("express");
 const router = express.Router();
 
-// other modules
-
 const productsModule = require("./productsModule");
 const usersModule = require("./usersModule");
 const validationModule = require("./validationModule");
+const userCartModule = require("./userCartModule");
 
 const displayProducts       = productsModule.displayProducts;
 const displaySingleProduct  = productsModule.displaySingleProduct;
 const searchProducts        = productsModule.searchProducts;
+const redirectSearch        = productsModule.redirectSearch;
 
 const findUserByNameAndPw   = usersModule.findUserByNameAndPw;
 
 const authGuard             = validationModule.authGuard;
 
+// User cart functions
+const displayUserCart         = userCartModule.displayUserCart;
+const addToUserCart         = userCartModule.addToUserCart;
+
 router.get("/", (req, res) => { res.redirect("/shop")});
 
-router.get("/shop",         authGuard, displayProducts);
-router.get("/shop/:id",     authGuard, displaySingleProduct);
-router.post("/shop/search", authGuard, searchProducts);
+router.get("/shop",                 authGuard, displayProducts);
+router.post("/shop/search",         authGuard, redirectSearch);
+router.get("/shop/search",          authGuard, searchProducts);
+
+router.get("/shop/product/:id",     authGuard, displaySingleProduct);
+
+router.get("/shop/cart",            authGuard, displayUserCart);
+router.post("/shop/cart",           authGuard, addToUserCart);
 
 router.get("/login", (req, res) => {
     const err = req.query.err;
@@ -30,7 +39,7 @@ router.post("/login", findUserByNameAndPw);
 router.get("/logout", (req, res) => {
     // If a user logs out, change session values to undefined
     req.session.authenticated = undefined;
-    req.session.orderList = undefined;
+    req.session.Id = undefined;
     // Redirect the user to the login
     res.redirect("/login");
 });

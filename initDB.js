@@ -4,6 +4,17 @@ const Product = ProductDB.getModel();
 const UserDB = require("./models/userDB");
 const User = UserDB.getModel();
 
+// instructor = User
+// course = Product
+const addProductToUser = async (userId, productId) => {
+	return User.findByIdAndUpdate(
+		userId,
+		// { $push: { userOrders: productId} },
+		{ $push: { userOrders: {product: "Trampoline", price: 25, quantity: 25 } }},
+		{new: true}
+	);
+ };
+
 (async () => {
 	// Initialize Products
 	await Product.deleteMany({});
@@ -32,7 +43,7 @@ const User = UserDB.getModel();
 
 	let product4 = new Product({
 		name: "Violin",
-		description: "Produce #4: Violin instrument",
+		description: "Product #4: Violin instrument",
 		price: 15,
 		stock: 400,
 	});
@@ -70,21 +81,36 @@ const User = UserDB.getModel();
 		username: "Bob",
 		password: "Bobpw",
 		status: "admin",
+		orders: [],
 	});
 
 	let user2 = new User({
 		username: "John",
 		password: "Johnpw",
 		status: "user",
+		orders: [],
 	});
 
 	let user3 = new User({
-		username: "Bill",
-		password: "Billpw",
+		username: "f",
+		password: "f",
 		status: "user",
+		orders: [],
 	});
 
+
 	await Promise.all([user1.save(), user2.save(), user3.save()]);
+
+	// Add Product to a User
+
+	console.log(`\n>> Add product1 (${product1._id}) to user1`);
+	console.log(await addProductToUser(user1._id, product1._id));
+
+	console.log(`\n>> Add product1 (${product1._id}) to user3`);
+	console.log(await addProductToUser(user3._id, product1._id));
+
+	console.log(`\n>> Add product2 (${product2._id}) to user3`);
+	console.log(await addProductToUser(user3._id, product2._id));
 
 	let currentUsers = await User.find({});
 

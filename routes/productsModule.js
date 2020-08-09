@@ -63,30 +63,42 @@ module.exports.displaySingleProduct = async (req, res, next) => {
     }
 };
 
-module.exports.searchProducts = async (req, res, next) => {
-    // get search off of POST body
+module.exports.redirectSearch = async(req,res, next) => {
+    // get search off of POST body and redirect the URL
     const search = req.body.search;
+    res.redirect(`/shop/search?query=${search}`)
+}
 
-    // search for a product by: name or description
-    productData = await Product.find({ $text: { $search: search } });
+module.exports.searchProducts = async (req, res, next) => {
+    // get search off of query
+    const search = req.query.query;
 
-    // DATA FOR HTML
-    const data = await productData.map((Product) => {
-        // For all descriptions, if it is long (more than 70 chars), we'll add a ... after it
-        const CHARS = 90;
-        if (Product.description.length > CHARS) {
-            // To make things look nice, we will find the last space before the CHARS'th character
-            const idxSpace = Product.description.slice(0, CHARS).lastIndexOf(" ");
-            Product.description = Product.description.slice(0, idxSpace) + "...";
-        }
+    // if query is undefined redirect user to /shop
+    if (search) {
+        // search for a product by: name or description
+        productData = await Product.find({ $text: { $search: search } });
 
-        return {
-            id: Product.id,
-            name: Product.name,
-            description: Product.description,
-            price: Product.price.toFixed(2),
-            stock: Product.stock,
-        };
-    });
-    res.render("displayProductsView", { title: "CS602 Shop: Search", data: data });
+        // DATA FOR HTML
+        const data = await productData.map((Product) => {
+            // For all descriptions, if it is long (more than 70 chars), we'll add a ... after it
+            const CHARS = 90;
+            if (Product.description.length > CHARS) {
+                // To make things look nice, we will find the last space before the CHARS'th character
+                const idxSpace = Product.description.slice(0, CHARS).lastIndexOf(" ");
+                Product.description = Product.description.slice(0, idxSpace) + "...";
+            }
+
+            return {
+                id: Product.id,
+                name: Product.name,
+                description: Product.description,
+                price: Product.price.toFixed(2),
+                stock: Product.stock,
+            };
+        });
+        res.render("displayProductsView", { title: "CS602 Shop: Search", data: data });
+    } else {
+        // if query doesn't exist, redirect to the shop
+        res.redirect('/shop');
+    }
 };
