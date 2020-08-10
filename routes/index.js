@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const productsModule = require("./productsModule");
-const usersModule = require("./usersModule");
-const validationModule = require("./validationModule");
-const userCartModule = require("./userCartModule");
-const adminModule = require("./adminModule");
+const productsModule        = require("./productsModule");
+const usersModule           = require("./usersModule");
+const validationModule      = require("./validationModule");
+const userCartModule        = require("./userCartModule");
+const adminModuleProducts   = require("./adminModuleProducts");
+const adminModuleCustomers = require("./adminModuleCustomers");
 
 const displayProducts       = productsModule.displayProducts;
 const displaySingleProduct  = productsModule.displaySingleProduct;
@@ -23,10 +24,17 @@ const authGuardAdmin    = validationModule.authGuardAdmin;
 const displayUserCart   = userCartModule.displayUserCart;
 const addToUserCart     = userCartModule.addToUserCart;
 
-const displayAdminPanel = adminModule. displayAdminPanel;
-const displayAdminProducts = adminModule. displayAdminProducts;
-const displayUpdateProduct = adminModule. displayUpdateProduct;
-const adminUpdateProduct = adminModule. adminUpdateProduct;
+const displayAdminPanel     = adminModuleProducts.displayAdminPanel;
+const displayAdminProducts  = adminModuleProducts.displayAdminProducts;
+const displayUpdateProduct  = adminModuleProducts.displayUpdateProduct;
+const adminUpdateProduct    = adminModuleProducts.adminUpdateProduct;
+const displayAddProduct     = adminModuleProducts.displayAddProduct;
+const adminAddProduct       = adminModuleProducts.adminAddProduct;
+const displayDeleteProduct  = adminModuleProducts.displayDeleteProduct;
+const adminDeleteProduct    = adminModuleProducts.adminDeleteProduct;
+
+const displayAdminCustomers = adminModuleCustomers.displayAdminCustomers;
+const displayCustomerOrders = adminModuleCustomers.displayCustomerOrders;
 
 router.get("/", (req, res) => { res.redirect("/shop")});
 
@@ -50,9 +58,13 @@ router.get("/admin/products",   authGuardAdmin, displayAdminProducts);
 router.get("/admin/product/update/:id", authGuardAdmin, displayUpdateProduct);
 router.post("/admin/product/update",    authGuardAdmin, adminUpdateProduct);
 
-router.get("/admin/product/delete/:id", (req, res) => {
-    const id = req.params.id;
-    res.render("deleteProductView", { id: id });
-});
+router.get("/admin/product/add",    authGuardAdmin, displayAddProduct);
+router.post("/admin/product/add",   authGuardAdmin, adminAddProduct);
+
+router.get("/admin/product/delete/:id",     authGuardAdmin, displayDeleteProduct);
+router.post("/admin/product/delete/:id",    authGuardAdmin, adminDeleteProduct);
+
+router.get("/admin/customers",      authGuardAdmin, displayAdminCustomers);
+router.get("/admin/customer/:id",   authGuardAdmin, displayCustomerOrders);
 
 module.exports = router;

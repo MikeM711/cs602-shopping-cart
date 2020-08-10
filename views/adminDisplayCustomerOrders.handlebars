@@ -1,8 +1,7 @@
 <div>
 
 	<nav class="navbar navbar-light bg-light justify-content-between">
-
-		<a type="submit" class="btn btn-outline-success" href="/admin/product/add">Add Product</a>
+		<h4><b>Customer:</b> {{name}}</h4>
 		<a type="submit" class="btn btn-outline-primary" href="/admin">Admin Menu</a>
 	</nav>
 
@@ -10,22 +9,18 @@
 		<table class="table table-condensed table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th style="width: 10%">Name</th>
-					<th>Description</th>
-					<th style="width: 8%">Price</th>
-					<th style="width: 8%">Stock</th>
+					<th style="width: 35%">Order</th>
+					<th style="width: 25%">Total Price</th>
+					<th style="width: 25%">Order Quantity</th>
 					<th style="width: 15%">Admin Controls</th>
 				</tr>
 			</thead>
 			<tbody>
 				{{#each data}}
 					<tr>
-						<td>
-							{{this.name}}
-						</td>
-						<td>{{this.description}}</td>
+						<td>{{this.product}}</td>
 						<td>${{this.price}}</td>
-						<td>{{this.stock}}</td>
+						<td>{{this.quantity}}</td>
 						</td>
 						<td>
 							<a href="/admin/product/update/{{this.id}}">Edit</a>

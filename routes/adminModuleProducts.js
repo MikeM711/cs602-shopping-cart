@@ -78,3 +78,52 @@ module.exports.adminUpdateProduct = async (req, res, next) => {
     // console.log(name, price, stock, description, id)
     res.redirect("/admin/products");
 };
+
+module.exports.displayAddProduct = async (req, res, next) => {
+    res.render("adminAddProductView", { title: "Add Product" });
+};
+
+module.exports.adminAddProduct = async (req, res, next) => {
+    // Get all inputs from req.body
+    const { name, price, stock, description } = req.body;
+
+    const product = new Product({ name, price, stock, description });
+
+    // add the product to the database
+    await product.save();
+
+    // console.log(name, price, stock, description, id)
+    res.redirect("/admin/products");
+};
+
+module.exports.displayDeleteProduct = async (req, res, next) => {
+    // Get id of product you want to delete
+    const id = req.params.id;
+
+    // fetch the product from the database using the ID
+    const product = await Product.findById(id);
+
+    if (!product) {
+        res.render("404");
+    } else {
+        // Get all properties of the product for the view
+        const { name, description, price, stock } = product;
+        res.render("adminDeleteProductView", {
+            title: "Delete this product",
+            name,
+            description,
+            price: price.toFixed(2),
+            stock,
+            id,
+        });
+    }
+};
+
+module.exports.adminDeleteProduct = async (req, res, next) => {
+    // get ID from params
+    const id = req.params.id;
+    // delete product from database
+    await Product.deleteOne({ _id: id });
+
+    res.redirect("/admin/products");
+};
