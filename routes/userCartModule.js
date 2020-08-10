@@ -19,7 +19,6 @@ module.exports.addToUserCart = async (req, res, next) => {
         // Get the User ID from req.session
         const userId = req.session.Id;
 
-        console.log(userId);
         // insert the name, price and stock into the user's order list
         await User.findByIdAndUpdate(
             userId,
@@ -84,8 +83,6 @@ module.exports.displayUserCart = async (req, res, next) => {
             totalQuantity: order.quantity,
         };
     });
-
-    console.log("order list:", orderList);
 
     res.render("userCart", { title: "User Cart Orders", orderList });
 };

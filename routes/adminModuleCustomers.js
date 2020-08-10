@@ -39,7 +39,7 @@ module.exports.displayCustomerOrders = async (req, res, next) => {
             product: order.product,
             price: order.price,
             quantity: order.quantity,
-            id: order._id
+            id: order._id,
         };
     });
 
@@ -47,7 +47,7 @@ module.exports.displayCustomerOrders = async (req, res, next) => {
         title: "Admin Control Panel: Customer Orders",
         data,
         name,
-        userId: id
+        userId: id,
     });
 };
 
@@ -105,6 +105,65 @@ module.exports.adminUpdateCustomerOrder = async (req, res, next) => {
             };
         }
         return order;
+    });
+
+    // update the customer's one order
+    const result = await User.updateOne(
+        { _id: userId },
+        { $set: { userOrders: orders } }
+    );
+
+    res.redirect(`/admin/customer/${userId}`);
+};
+
+module.exports.displayDeleteCustomerOrder = async (req, res, next) => {
+    // get IDs from request params
+    // IDs of user and  ID of a particular user's order
+    const userId = req.params.userid;
+    const prodId = req.params.prodid;
+
+    // Get user
+    const userData = await User.find({ _id: userId });
+
+    // get the order from the user's orders
+    let product, price, quantity;
+
+    // Find the order that we want to delete within the user's orders
+    for (order of userData[0].userOrders) {
+        if (order._id == prodId) {
+            product = order.product;
+            price = order.price;
+            quantity = order.quantity;
+            break;
+        }
+    }
+
+    res.render("adminDeleteCustomerOrderView", {
+        title: "Delete User Order",
+        product,
+        price,
+        quantity,
+        userId,
+        prodId,
+        name: userData[0].username,
+    });
+};
+
+module.exports.adminDeleteCustomerOrder = async (req, res, next) => {
+    // Get values off of POST body
+    const { userId, prodId } = req.body;
+
+    // Get user
+    const userData = await User.find({ _id: userId });
+
+    // Get the orders from the user
+    // If we spot the product that contains the ID in question,
+    // we will delete that product
+    const orders = userData[0].userOrders.filter((order) => {
+        // if order in the list matches the updated ID order, delete it
+        if (order._id != prodId) {
+            return order;
+        }
     });
 
     // update the customer's one order

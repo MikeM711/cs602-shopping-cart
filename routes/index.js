@@ -33,10 +33,12 @@ const adminAddProduct       = adminModuleProducts.adminAddProduct;
 const displayDeleteProduct  = adminModuleProducts.displayDeleteProduct;
 const adminDeleteProduct    = adminModuleProducts.adminDeleteProduct;
 
-const displayAdminCustomers = adminModuleCustomers.displayAdminCustomers;
-const displayCustomerOrders = adminModuleCustomers.displayCustomerOrders;
-const displayUpdateCustomerOrder = adminModuleCustomers.displayUpdateCustomerOrder;
-const adminUpdateCustomerOrder = adminModuleCustomers.adminUpdateCustomerOrder;
+const displayAdminCustomers         = adminModuleCustomers.displayAdminCustomers;
+const displayCustomerOrders         = adminModuleCustomers.displayCustomerOrders;
+const displayUpdateCustomerOrder    = adminModuleCustomers.displayUpdateCustomerOrder;
+const adminUpdateCustomerOrder      = adminModuleCustomers.adminUpdateCustomerOrder;
+const displayDeleteCustomerOrder    = adminModuleCustomers.displayDeleteCustomerOrder;
+const adminDeleteCustomerOrder      = adminModuleCustomers.adminDeleteCustomerOrder;
 
 router.get("/", (req, res) => { res.redirect("/shop")});
 
@@ -71,5 +73,8 @@ router.get("/admin/customer/:id",   authGuardAdmin, displayCustomerOrders);
 
 router.get("/admin/customer/:userid/update/:prodid",   authGuardAdmin, displayUpdateCustomerOrder);
 router.post("/admin/customer/update",   authGuardAdmin, adminUpdateCustomerOrder);
+
+router.get("/admin/customer/:userid/delete/:prodid",   authGuardAdmin, displayDeleteCustomerOrder);
+router.post("/admin/customer/delete",   authGuardAdmin, adminDeleteCustomerOrder);
 
 module.exports = router;
