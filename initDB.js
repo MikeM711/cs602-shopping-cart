@@ -78,22 +78,22 @@ const addProductToUser = async (userId, productId) => {
 	await User.deleteMany({});
 
 	let user1 = new User({
-		username: "Bob",
-		password: "Bobpw",
+		username: "f",
+		password: "f",
 		status: "admin",
 		orders: [],
 	});
 
 	let user2 = new User({
-		username: "John",
-		password: "Johnpw",
+		username: "u",
+		password: "u",
 		status: "user",
 		orders: [],
 	});
 
 	let user3 = new User({
-		username: "f",
-		password: "f",
+		username: "Bill",
+		password: "Billpw",
 		status: "user",
 		orders: [],
 	});

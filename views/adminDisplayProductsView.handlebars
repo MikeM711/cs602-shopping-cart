@@ -1,0 +1,39 @@
+<div>
+
+	<nav class="navbar navbar-light bg-light justify-content-between">
+
+		<button class="btn btn-outline-success">Add Product</button>
+	</nav>
+
+	<div class="table-responsive">
+		<table class="table table-condensed table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 10%">Name</th>
+					<th>Description</th>
+					<th style="width: 8%">Price</th>
+					<th style="width: 8%">Stock</th>
+					<th style="width: 15%">Admin Controls</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each data}}
+					<tr>
+						<td>
+							{{this.name}}
+						</td>
+						<td>{{this.description}}</td>
+						<td>${{this.price}}</td>
+						<td>{{this.stock}}</td>
+						</td>
+						<td>
+							<a href="/admin/product/update/{{this.id}}">Edit</a>
+							<span>|</span>
+							<a href="/admin/product/delete/{{this.id}}">Delete</a>
+						</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
