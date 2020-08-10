@@ -23,9 +23,9 @@
 						<td>{{this.quantity}}</td>
 						</td>
 						<td>
-							<a href="/admin/product/update/{{this.id}}">Edit</a>
+							<a href="/admin/customer/{{../userId}}/update/{{this.id}}">Edit</a>
 							<span>|</span>
-							<a href="/admin/product/delete/{{this.id}}">Delete</a>
+							<a href="/admin/customer/{{../userId}}/delete/{{this.id}}">Delete</a>
 						</td>
 					</tr>
 				{{/each}}

@@ -35,6 +35,8 @@ const adminDeleteProduct    = adminModuleProducts.adminDeleteProduct;
 
 const displayAdminCustomers = adminModuleCustomers.displayAdminCustomers;
 const displayCustomerOrders = adminModuleCustomers.displayCustomerOrders;
+const displayUpdateCustomerOrder = adminModuleCustomers.displayUpdateCustomerOrder;
+const adminUpdateCustomerOrder = adminModuleCustomers.adminUpdateCustomerOrder;
 
 router.get("/", (req, res) => { res.redirect("/shop")});
 
@@ -66,5 +68,8 @@ router.post("/admin/product/delete/:id",    authGuardAdmin, adminDeleteProduct);
 
 router.get("/admin/customers",      authGuardAdmin, displayAdminCustomers);
 router.get("/admin/customer/:id",   authGuardAdmin, displayCustomerOrders);
+
+router.get("/admin/customer/:userid/update/:prodid",   authGuardAdmin, displayUpdateCustomerOrder);
+router.post("/admin/customer/update",   authGuardAdmin, adminUpdateCustomerOrder);
 
 module.exports = router;

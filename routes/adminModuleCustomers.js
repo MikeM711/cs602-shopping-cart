@@ -33,14 +33,13 @@ module.exports.displayCustomerOrders = async (req, res, next) => {
     // Get user's name
     const name = userData[0].username;
 
-    console.log(userData);
-
     // map user data orders to new format
     const data = userData[0].userOrders.map((order) => {
         return {
             product: order.product,
             price: order.price,
             quantity: order.quantity,
+            id: order._id
         };
     });
 
@@ -48,5 +47,71 @@ module.exports.displayCustomerOrders = async (req, res, next) => {
         title: "Admin Control Panel: Customer Orders",
         data,
         name,
+        userId: id
     });
+};
+
+module.exports.displayUpdateCustomerOrder = async (req, res, next) => {
+    // get IDs from request params
+    // IDs of user and  ID of a particular user's order
+    const userId = req.params.userid;
+    const prodId = req.params.prodid;
+
+    // Get user
+    const userData = await User.find({ _id: userId });
+
+    // get the order from the user's orders
+    let product, price, quantity;
+
+    // Find the order that we want to update within the user's orders
+    for (order of userData[0].userOrders) {
+        if (order._id == prodId) {
+            product = order.product;
+            price = order.price;
+            quantity = order.quantity;
+            break;
+        }
+    }
+
+    res.render("adminUpdateCustomerOrderView", {
+        title: "Update User Order",
+        product,
+        price,
+        quantity,
+        userId,
+        prodId,
+    });
+};
+
+module.exports.adminUpdateCustomerOrder = async (req, res, next) => {
+    // Get values off of POST body
+    const { product, price, quantity, userId, prodId } = req.body;
+
+    // Get user
+    const userData = await User.find({ _id: userId });
+
+    // Get the orders from the user
+    // If we spot the product that contains the ID in question,
+    // we will modify that product
+    const orders = userData[0].userOrders.map((order) => {
+        // if order in the list matches the updated ID order,
+        // place new values
+        if (order._id == prodId) {
+            return {
+                _id: order._id,
+                product,
+                price,
+                quantity,
+            };
+        }
+        return order;
+    });
+
+    // update the customer's one order
+    const result = await User.updateOne(
+        { _id: userId },
+        { $set: { userOrders: orders } }
+    );
+
+    res.redirect(`/admin/customer/${userId}`);
 };

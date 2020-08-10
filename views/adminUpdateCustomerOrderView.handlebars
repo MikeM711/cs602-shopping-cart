@@ -1,0 +1,15 @@
+<form action="/admin/customer/update" method="post">
+    <label>Product: </label>
+    <input type="text" name="product" value={{product}}>
+    <br/>
+    <label>Price ($): </label>
+    <input type="number" step=".01" name="price" value={{price}}>
+    <br/>
+    <label>Quantity: </label>
+    <input type="number" name="quantity" value={{quantity}}>
+    <br/>
+    <input type="hidden" name="userId" value="{{userId}}">
+    <input type="hidden" name="prodId" value="{{prodId}}">
+
+    <button type="submit" class="btn btn-secondary">Update Order</button>
+</form>
