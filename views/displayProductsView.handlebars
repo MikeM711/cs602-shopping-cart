@@ -30,7 +30,7 @@
 		<table class="table table-condensed table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th style="width: 10%">Name</th>
+					<th style="width: 15%">Name</th>
 					<th>Description</th>
 					<th style="width: 8%">Price</th>
 					<th style="width: 8%">Stock</th>
@@ -47,6 +47,10 @@
 						<td>{{this.stock}}</td>
 						</td>
 					</tr>
+				{{else}}
+				<tr>
+					<th colspan="4">There are no products at this time.</th>
+				</tr>
 				{{/each}}
 			</tbody>
 			<tfooter>

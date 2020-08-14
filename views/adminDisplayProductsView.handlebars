@@ -33,6 +33,10 @@
 							<a href="/admin/product/delete/{{this.id}}">Delete</a>
 						</td>
 					</tr>
+				{{else}}
+					<tr>
+						<th colspan="5">There are no products at this time.</th>
+					</tr>
 				{{/each}}
 			</tbody>
 		</table>

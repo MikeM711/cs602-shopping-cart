@@ -6,7 +6,8 @@ const usersModule           = require("./usersModule");
 const validationModule      = require("./validationModule");
 const userCartModule        = require("./userCartModule");
 const adminModuleProducts   = require("./adminModuleProducts");
-const adminModuleCustomers = require("./adminModuleCustomers");
+const adminModuleCustomers  = require("./adminModuleCustomers");
+const api                   = require("./api");
 
 const displayProducts       = productsModule.displayProducts;
 const displaySingleProduct  = productsModule.displaySingleProduct;
@@ -40,6 +41,10 @@ const adminUpdateCustomerOrder      = adminModuleCustomers.adminUpdateCustomerOr
 const displayDeleteCustomerOrder    = adminModuleCustomers.displayDeleteCustomerOrder;
 const adminDeleteCustomerOrder      = adminModuleCustomers.adminDeleteCustomerOrder;
 
+const fetchProducts                 = api.fetchProducts;
+const fetchMatchingNameProducts     = api.fetchMatchingNameProducts;
+const fetchSpecPriceRangeProducts   = api.fetchSpecPriceRangeProducts;
+
 router.get("/", (req, res) => { res.redirect("/shop")});
 
 router.get("/shop",                 authGuardUser, displayProducts);
@@ -71,10 +76,14 @@ router.post("/admin/product/delete/:id",    authGuardAdmin, adminDeleteProduct);
 router.get("/admin/customers",      authGuardAdmin, displayAdminCustomers);
 router.get("/admin/customer/:id",   authGuardAdmin, displayCustomerOrders);
 
-router.get("/admin/customer/:userid/update/:prodid",   authGuardAdmin, displayUpdateCustomerOrder);
-router.post("/admin/customer/update",   authGuardAdmin, adminUpdateCustomerOrder);
+router.get("/admin/customer/:userid/update/:prodid",    authGuardAdmin, displayUpdateCustomerOrder);
+router.post("/admin/customer/update",                   authGuardAdmin, adminUpdateCustomerOrder);
 
-router.get("/admin/customer/:userid/delete/:prodid",   authGuardAdmin, displayDeleteCustomerOrder);
-router.post("/admin/customer/delete",   authGuardAdmin, adminDeleteCustomerOrder);
+router.get("/admin/customer/:userid/delete/:prodid",    authGuardAdmin, displayDeleteCustomerOrder);
+router.post("/admin/customer/delete",                   authGuardAdmin, adminDeleteCustomerOrder);
+
+router.get("/api/products",         fetchProducts);
+router.get("/api/products/:name",   fetchMatchingNameProducts);
+router.get("/api/price",            fetchSpecPriceRangeProducts);
 
 module.exports = router;

@@ -84,5 +84,5 @@ module.exports.displayUserCart = async (req, res, next) => {
         };
     });
 
-    res.render("userCart", { title: "User Cart Orders", orderList });
+    res.render("userCart", { title: `Cart Orders: ${userData.username}`, orderList });
 };

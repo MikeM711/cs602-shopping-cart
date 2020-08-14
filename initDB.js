@@ -20,9 +20,9 @@ const addProductToUser = async (userId, productId) => {
 	await Product.deleteMany({});
 
 	let product1 = new Product({
-		name: "Trampoline",
+		name: "Guitar",
 		description:
-			"Product #1 Just adding the simplest native php_mysql way to fetch a single value for completeness",
+			"Product #1 long string long string long string long string long string long string long string long string long string long string long string",
 		price: 10,
 		stock: 100,
 	});
@@ -35,14 +35,14 @@ const addProductToUser = async (userId, productId) => {
 	});
 
 	let product3 = new Product({
-		name: "Paper",
+		name: "Paper Violin",
 		description: "Product #3",
 		price: 30,
 		stock: 300,
 	});
 
 	let product4 = new Product({
-		name: "Violin",
+		name: "String Instrument",
 		description: "Product #4: Violin instrument",
 		price: 15,
 		stock: 400,
@@ -85,7 +85,7 @@ const addProductToUser = async (userId, productId) => {
 	});
 
 	let user2 = new User({
-		username: "u",
+		username: "some_user",
 		password: "u",
 		status: "user",
 		orders: [],
