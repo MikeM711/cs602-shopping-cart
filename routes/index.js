@@ -10,46 +10,60 @@ const adminModuleCustomers  = require("./adminModuleCustomers");
 const api                   = require("./api");
 
 // products module
-const displayProducts       = productsModule.displayProducts;
-const displaySingleProduct  = productsModule.displaySingleProduct;
-const searchProducts        = productsModule.searchProducts;
-const redirectSearch        = productsModule.redirectSearch;
+const {
+  displayProducts,
+  displaySingleProduct,
+  searchProducts,
+  redirectSearch,
+} = productsModule;
 
 // login
-const signIn        = usersModule.signIn;
-const signOut       = usersModule.signOut;
-const displayLogin  = usersModule.displayLogin;
+const { 
+    signIn,
+    signOut,
+    displayLogin,
+} = usersModule;
 
 // auth guard
-const authGuardUser     = validationModule.authGuardUser;
-const authGuardAdmin    = validationModule.authGuardAdmin;
+const {
+    authGuardUser,
+    authGuardAdmin,
+} = validationModule;
 
 // User cart functions
-const displayUserCart   = userCartModule.displayUserCart;
-const addToUserCart     = userCartModule.addToUserCart;
+const {
+    displayUserCart,
+    addToUserCart,
+} = userCartModule;
 
 // Admin Module - Products
-const displayAdminPanel     = adminModuleProducts.displayAdminPanel;
-const displayAdminProducts  = adminModuleProducts.displayAdminProducts;
-const displayUpdateProduct  = adminModuleProducts.displayUpdateProduct;
-const adminUpdateProduct    = adminModuleProducts.adminUpdateProduct;
-const displayAddProduct     = adminModuleProducts.displayAddProduct;
-const adminAddProduct       = adminModuleProducts.adminAddProduct;
-const displayDeleteProduct  = adminModuleProducts.displayDeleteProduct;
-const adminDeleteProduct    = adminModuleProducts.adminDeleteProduct;
+const {
+  displayAdminPanel,
+  displayAdminProducts,
+  displayUpdateProduct,
+  adminUpdateProduct,
+  displayAddProduct,
+  adminAddProduct,
+  displayDeleteProduct,
+  adminDeleteProduct,
+} = adminModuleProducts;
 
 // Admin Module - Customers
-const displayAdminCustomers         = adminModuleCustomers.displayAdminCustomers;
-const displayCustomerOrders         = adminModuleCustomers.displayCustomerOrders;
-const displayUpdateCustomerOrder    = adminModuleCustomers.displayUpdateCustomerOrder;
-const adminUpdateCustomerOrder      = adminModuleCustomers.adminUpdateCustomerOrder;
-const displayDeleteCustomerOrder    = adminModuleCustomers.displayDeleteCustomerOrder;
-const adminDeleteCustomerOrder      = adminModuleCustomers.adminDeleteCustomerOrder;
+const {
+  displayAdminCustomers,
+  displayCustomerOrders,
+  displayUpdateCustomerOrder,
+  adminUpdateCustomerOrder,
+  displayDeleteCustomerOrder,
+  adminDeleteCustomerOrder,
+} = adminModuleCustomers;
 
 // API
-const fetchProducts                 = api.fetchProducts;
-const fetchMatchingNameProducts     = api.fetchMatchingNameProducts;
-const fetchSpecPriceRangeProducts   = api.fetchSpecPriceRangeProducts;
+const {
+  fetchProducts,
+  fetchMatchingNameProducts,
+  fetchSpecPriceRangeProducts,
+} = api;
 
 // Routes
 
