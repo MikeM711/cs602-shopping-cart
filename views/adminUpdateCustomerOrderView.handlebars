@@ -1,12 +1,12 @@
 <form action="/admin/customer/update" method="post">
     <label>Product: </label>
-    <input type="text" name="product" value={{product}}>
+    <input type="text" name="product" value={{product}} required>
     <br/>
     <label>Price ($): </label>
-    <input type="number" step=".01" name="price" value={{price}}>
+    <input type="number" step=".01" name="price" value={{price}} required>
     <br/>
     <label>Quantity: </label>
-    <input type="number" name="quantity" value={{quantity}}>
+    <input type="number" name="quantity" value={{quantity}} required>
     <br/>
     <input type="hidden" name="userId" value="{{userId}}">
     <input type="hidden" name="prodId" value="{{prodId}}">

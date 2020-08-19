@@ -20,7 +20,7 @@ module.exports.displayProducts = async (req, res, next) => {
         productData = await Product.find({});
     }
 
-    // DATA FOR HTML
+    // Create data for HTML
     const data = await productData.map((Product) => {
         // For all descriptions, if it is long (more than 70 chars), we'll add a ... after it
         const CHARS = 90;
@@ -79,7 +79,7 @@ module.exports.searchProducts = async (req, res, next) => {
         // search for a product by: name or description
         productData = await Product.find({ $text: { $search: search } });
 
-        // DATA FOR HTML
+        // Create data for HTML
         const data = await productData.map((Product) => {
             // For all descriptions, if it is long (more than 70 chars), we'll add a ... after it
             const CHARS = 90;

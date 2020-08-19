@@ -12,6 +12,7 @@ const dbUrl = 'mongodb://' + credentials.username +
 let connection = null;
 let model = null;
 
+// Create User Schema
 const userSchema = new Schema(
 	{
 		username: String,

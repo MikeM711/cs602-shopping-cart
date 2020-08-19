@@ -9,6 +9,7 @@ const dbUrl = 'mongodb://' + credentials.username +
 let connection = null;
 let model = null;
 
+// Create Product Schema
 const productSchema = new Schema(
 	{
 		name: String,

@@ -10,24 +10,9 @@ module.exports.displayAdminPanel = async (req, res, next) => {
 
 module.exports.displayAdminProducts = async (req, res, next) => {
     // Get all of the Product data from within the Product collection
-    // Depending on sort criteria
-    const sortQuery = req.query.sort;
-    let productData;
+    productData = await Product.find({});
 
-    if (sortQuery == "low-to-high") {
-        productData = await Product.find({}).sort({ price: 1 });
-    } else if (sortQuery == "high-to-low") {
-        productData = await Product.find({}).sort({ price: -1 });
-    } else if (sortQuery == "alphabetical") {
-        productData = await Product.find({}).sort({ name: 1 });
-    } else if (sortQuery == "newest") {
-        productData = await Product.find({}).sort({ updatedAt: 1 });
-    }
-    if (sortQuery == undefined) {
-        productData = await Product.find({});
-    }
-
-    // DATA FOR HTML
+    // Data for the view
     const data = await productData.map((Product) => {
         return {
             id: Product.id,
@@ -44,6 +29,7 @@ module.exports.displayAdminProducts = async (req, res, next) => {
 };
 
 module.exports.displayUpdateProduct = async (req, res, next) => {
+    // Get ID param
     const id = req.params.id;
 
     // fetch the product from the database using the ID
@@ -75,11 +61,11 @@ module.exports.adminUpdateProduct = async (req, res, next) => {
         { $set: { name, description, price, stock } }
     );
 
-    // console.log(name, price, stock, description, id)
     res.redirect("/admin/products");
 };
 
 module.exports.displayAddProduct = async (req, res, next) => {
+    // Display Admin's Add Product View
     res.render("adminAddProductView", { title: "Add Product" });
 };
 
@@ -87,12 +73,12 @@ module.exports.adminAddProduct = async (req, res, next) => {
     // Get all inputs from req.body
     const { name, price, stock, description } = req.body;
 
+    // Create a new Product using the Product Model
     const product = new Product({ name, price, stock, description });
 
     // add the product to the database
     await product.save();
 
-    // console.log(name, price, stock, description, id)
     res.redirect("/admin/products");
 };
 

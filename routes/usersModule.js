@@ -2,12 +2,9 @@ const userDB = require("../models/userDB.js");
 const User = userDB.getModel();
 
 module.exports.signIn = async (req, res, next) => {
-    let password = req.body.password;
-    let username = req.body.username;
-
-    //TODO: 1) get rid of the below, 2) and set password and username to CONST
-    // username = "f";
-    // password = "f";
+    // Get password and username from POST body
+    const password = req.body.password;
+    const username = req.body.username;
 
     // Get the user data using a user's username and password
     userData = await User.find({ username, password });

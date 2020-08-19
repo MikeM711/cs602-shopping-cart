@@ -29,7 +29,7 @@ function createProductXml(productData) {
 
 module.exports.fetchProducts = async (req, res, next) => {
     // Get all products
-    productData = await Product.find({});
+    const productData = await Product.find({});
 
     res.format({
         "application/json": () => {
@@ -53,7 +53,7 @@ module.exports.fetchMatchingNameProducts = async (req, res, next) => {
     const name = req.params.name;
 
     // Get all product(s) matching a specified name
-    productData = await Product.find({ name });
+    const productData = await Product.find({ name });
 
     res.format({
         "application/json": () => {
@@ -80,10 +80,8 @@ module.exports.fetchSpecPriceRangeProducts = async (req, res, next) => {
     low = Number(low);
     high = Number(high);
 
-    console.log(low, high);
-
     // Get all products in a specified price range (between low and high)
-    productData = await Product.find({ price: { $gte: low, $lte: high } });
+    const productData = await Product.find({ price: { $gte: low, $lte: high } });
 
     res.format({
         "application/json": () => {

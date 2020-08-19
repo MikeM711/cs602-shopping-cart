@@ -5,7 +5,7 @@ const productDB = require("../models/productDB.js");
 const Product = productDB.getModel();
 
 module.exports.displayAdminCustomers = async (req, res, next) => {
-    // Get all customers in the user database
+    // Get all customers in the user database, status is "user"
     // No admins
     const customers = await User.find({ status: "user" });
 

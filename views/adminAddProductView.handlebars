@@ -1,16 +1,16 @@
 <form action="/admin/product/add" method="post">
     <label>Name: </label>
-    <input type="text" name="name">
+    <input type="text" name="name" required>
     <br/>
     <label>Price ($): </label>
-    <input type="number" step=".01" name="price">
+    <input type="number" step=".01" name="price" required>
     <br/>
     <label>Stock: </label>
-    <input type="number" name="stock">
+    <input type="number" name="stock" required>
     <br/>
     <br/>
     <p>Description:</p>
-    <textarea type="text" name="description"  rows="4" cols="50"></textarea>
+    <textarea type="text" name="description"  rows="4" cols="50" required></textarea>
 
     <br/>
     <input type="hidden" name="id">
