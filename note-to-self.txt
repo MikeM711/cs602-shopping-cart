@@ -1,6 +1,0 @@
-path: /usr/local/mongodb/bin/mongod
-
-1) When deleting - we need a confirmation that we will delete
-2) You can hide input values to send things to another response/request
-3) Server-side validation
-4) *** REST APIs (XML & JSON) ***
