@@ -28,27 +28,31 @@ module.exports.displayCustomerOrders = async (req, res, next) => {
     const id = req.params.id;
 
     // find the user
-    const userData = await User.find({ _id: id });
+    try {
+        const userData = await User.find({ _id: id });
 
-    // Get user's name
-    const name = userData[0].username;
+        // Get user's name
+        const name = userData[0].username;
 
-    // map user data orders to new format
-    const data = userData[0].userOrders.map((order) => {
-        return {
-            product: order.product,
-            price: order.price,
-            quantity: order.quantity,
-            id: order._id,
-        };
-    });
+        // map user data orders to new format
+        const data = userData[0].userOrders.map((order) => {
+            return {
+                product: order.product,
+                price: order.price,
+                quantity: order.quantity,
+                id: order._id,
+            };
+        });
 
-    res.render("adminDisplayCustomerOrders", {
-        title: "Admin Control Panel: Customer Orders",
-        data,
-        name,
-        userId: id,
-    });
+        res.render("adminDisplayCustomerOrders", {
+            title: "Admin Control Panel: Customer Orders",
+            data,
+            name,
+            userId: id,
+        });
+    } catch (err) {
+        res.redirect("/404");
+    }
 };
 
 module.exports.displayUpdateCustomerOrder = async (req, res, next) => {
@@ -58,29 +62,38 @@ module.exports.displayUpdateCustomerOrder = async (req, res, next) => {
     const prodId = req.params.prodid;
 
     // Get user
-    const userData = await User.find({ _id: userId });
+    try {
+        const userData = await User.find({ _id: userId });
 
-    // get the order from the user's orders
-    let product, price, quantity;
+        // get the order from the user's orders
+        let product, price, quantity;
 
-    // Find the order that we want to update within the user's orders
-    for (order of userData[0].userOrders) {
-        if (order._id == prodId) {
-            product = order.product;
-            price = order.price;
-            quantity = order.quantity;
-            break;
+        // Find the order that we want to update within the user's orders
+        for (order of userData[0].userOrders) {
+            if (order._id == prodId) {
+                product = order.product;
+                price = order.price;
+                quantity = order.quantity;
+                break;
+            }
         }
-    }
 
-    res.render("adminUpdateCustomerOrderView", {
-        title: "Update User Order",
-        product,
-        price,
-        quantity,
-        userId,
-        prodId,
-    });
+        // If product, price or quantity not found, redirect to a 404
+        if (!product || !price || !quantity){
+            res.redirect("/404");
+        } else {
+            res.render("adminUpdateCustomerOrderView", {
+                title: "Update User Order",
+                product,
+                price,
+                quantity,
+                userId,
+                prodId,
+            });
+        }
+    } catch (err) {
+        res.redirect("/404");
+    }
 };
 
 module.exports.adminUpdateCustomerOrder = async (req, res, next) => {
@@ -123,30 +136,39 @@ module.exports.displayDeleteCustomerOrder = async (req, res, next) => {
     const prodId = req.params.prodid;
 
     // Get user
-    const userData = await User.find({ _id: userId });
+    try {
+        const userData = await User.find({ _id: userId });
 
-    // get the order from the user's orders
-    let product, price, quantity;
+        // get the order from the user's orders
+        let product, price, quantity;
 
-    // Find the order that we want to delete within the user's orders
-    for (order of userData[0].userOrders) {
-        if (order._id == prodId) {
-            product = order.product;
-            price = order.price;
-            quantity = order.quantity;
-            break;
+        // Find the order that we want to delete within the user's orders
+        for (order of userData[0].userOrders) {
+            if (order._id == prodId) {
+                product = order.product;
+                price = order.price;
+                quantity = order.quantity;
+                break;
+            }
         }
-    }
 
-    res.render("adminDeleteCustomerOrderView", {
-        title: "Delete User Order",
-        product,
-        price,
-        quantity,
-        userId,
-        prodId,
-        name: userData[0].username,
-    });
+        // If product, price or quantity not found, redirect to a 404
+        if (!product || !price || !quantity){
+            res.redirect("/404");
+        } else {
+            res.render("adminDeleteCustomerOrderView", {
+                title: "Delete User Order",
+                product,
+                price,
+                quantity,
+                userId,
+                prodId,
+                name: userData[0].username,
+            });
+        }
+    } catch (err) {
+        res.redirect("/404");
+    }
 };
 
 module.exports.adminDeleteCustomerOrder = async (req, res, next) => {

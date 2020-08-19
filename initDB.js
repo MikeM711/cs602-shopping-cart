@@ -103,12 +103,6 @@ const addProductToUser = async (userId, productId) => {
 
 	// Add Product to a User
 
-	console.log(`\n>> Add product1 (${product1._id}) to user1`);
-	console.log(await addProductToUser(user1._id, product1._id));
-
-	console.log(`\n>> Add product1 (${product1._id}) to user3`);
-	console.log(await addProductToUser(user3._id, product1._id));
-
 	console.log(`\n>> Add product2 (${product2._id}) to user3`);
 	console.log(await addProductToUser(user3._id, product2._id));
 

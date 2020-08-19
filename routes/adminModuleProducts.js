@@ -33,11 +33,8 @@ module.exports.displayUpdateProduct = async (req, res, next) => {
     const id = req.params.id;
 
     // fetch the product from the database using the ID
-    const product = await Product.findById(id);
-
-    if (!product) {
-        res.render("404");
-    } else {
+    try {
+        const product = await Product.findById(id);
         // Get all properties of the product for the view
         const { name, description, price, stock } = product;
         res.render("adminUpdateProductView", {
@@ -48,6 +45,8 @@ module.exports.displayUpdateProduct = async (req, res, next) => {
             stock,
             id,
         });
+    } catch (err) {
+        res.redirect("/404");
     }
 };
 
@@ -87,11 +86,8 @@ module.exports.displayDeleteProduct = async (req, res, next) => {
     const id = req.params.id;
 
     // fetch the product from the database using the ID
-    const product = await Product.findById(id);
-
-    if (!product) {
-        res.render("404");
-    } else {
+    try {
+        const product = await Product.findById(id);
         // Get all properties of the product for the view
         const { name, description, price, stock } = product;
         res.render("adminDeleteProductView", {
@@ -102,6 +98,8 @@ module.exports.displayDeleteProduct = async (req, res, next) => {
             stock,
             id,
         });
+    } catch (err) {
+        res.redirect("/404");
     }
 };
 

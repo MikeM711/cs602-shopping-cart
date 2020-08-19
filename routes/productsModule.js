@@ -46,11 +46,9 @@ module.exports.displaySingleProduct = async (req, res, next) => {
     const id = req.params.id;
 
     // fetch the product from the database using the ID
-    const product = await Product.findById(id);
-
-    if (!product) {
-        res.render("404");
-    } else {
+    let product
+    try {
+        product = await Product.findById(id);
         // Get all properties of the product for the view
         const { name, description, price, stock } = product;
         res.render("displaySingleProduct", {
@@ -61,6 +59,8 @@ module.exports.displaySingleProduct = async (req, res, next) => {
             stock,
             id
         });
+    } catch (err) {
+        res.redirect("/404");
     }
 };
 
