@@ -4,17 +4,6 @@ const Product = ProductDB.getModel();
 const UserDB = require("./models/userDB");
 const User = UserDB.getModel();
 
-// instructor = User
-// course = Product
-const addProductToUser = async (userId, productId) => {
-	return User.findByIdAndUpdate(
-		userId,
-		// { $push: { userOrders: productId} },
-		{ $push: { userOrders: {product: "Trampoline", price: 25, quantity: 25 } }},
-		{new: true}
-	);
- };
-
 (async () => {
 	// Initialize Products
 	await Product.deleteMany({});
@@ -29,14 +18,14 @@ const addProductToUser = async (userId, productId) => {
 
 	let product2 = new Product({
 		name: "Scissors",
-		description: "Product #2",
+		description: "Product #2: Titanium bonded blades",
 		price: 20,
 		stock: 200,
 	});
 
 	let product3 = new Product({
 		name: "Paper Violin",
-		description: "Product #3",
+		description: "Product #3: An origami piece",
 		price: 30,
 		stock: 300,
 	});
@@ -56,7 +45,7 @@ const addProductToUser = async (userId, productId) => {
 	});
 
 	// await Promise.all([
-	//         product1.save(),
+	//      product1.save(),
 	// 		product2.save(),
 	// 		product3.save(),
 	// 		product4.save(),
@@ -78,15 +67,15 @@ const addProductToUser = async (userId, productId) => {
 	await User.deleteMany({});
 
 	let user1 = new User({
-		username: "f",
-		password: "f",
+		username: "the_admin",
+		password: "the_adminpw",
 		status: "admin",
 		orders: [],
 	});
 
 	let user2 = new User({
-		username: "some_user",
-		password: "u",
+		username: "Bob",
+		password: "Bobpw",
 		status: "user",
 		orders: [],
 	});
@@ -100,11 +89,6 @@ const addProductToUser = async (userId, productId) => {
 
 
 	await Promise.all([user1.save(), user2.save(), user3.save()]);
-
-	// Add Product to a User
-
-	console.log(`\n>> Add product2 (${product2._id}) to user3`);
-	console.log(await addProductToUser(user3._id, product2._id));
 
 	let currentUsers = await User.find({});
 

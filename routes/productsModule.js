@@ -14,7 +14,7 @@ module.exports.displayProducts = async (req, res, next) => {
     } else if (sortQuery == "alphabetical") {
         productData = await Product.find({}).sort({ name: 1 });
     } else if (sortQuery == "newest") {
-        productData = await Product.find({}).sort({ updatedAt: -1 });
+        productData = await Product.find({}).sort({ createdAt: -1 });
     }
     if (sortQuery == undefined) {
         productData = await Product.find({});
