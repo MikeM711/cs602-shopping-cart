@@ -1,3 +1,5 @@
+Project & Presentation Grade: 100/100
+
 Final Project: MET CS 602 O2 Server-Side Web Development (2020 Summer 2)
 By, Michael McCabe
 
